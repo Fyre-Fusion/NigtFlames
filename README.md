@@ -53,6 +53,8 @@ System shows:
 Refreshing, reloading, or restarting your PC will not erase entries
 
 All data is stored in your browser via local storage
+-------------------------------------------------------------------------------------------
+Current Version - V2
 
 ✅ Pro Tip: Double-check all details before confirming entries—once saved, they cannot be edited.
 -------------------------------------------------------------------------------------------
