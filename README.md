@@ -55,3 +55,5 @@ Refreshing, reloading, or restarting your PC will not erase entries
 All data is stored in your browser via local storage
 
 ✅ Pro Tip: Double-check all details before confirming entries—once saved, they cannot be edited.
+-------------------------------------------------------------------------------------------
+Just replicate this Repo and save everything and click on index.html to open it up in your browser!
