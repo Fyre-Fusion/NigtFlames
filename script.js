@@ -1,24 +1,54 @@
 // =================== INITIALIZE STORAGE ===================
 if(!localStorage.getItem("NF_entry")) localStorage.setItem("NF_entry","0");
-if(!localStorage.getItem("NF_track")) localStorage.setItem("NF_track","AAA");
+if(!localStorage.getItem("NF_track")) localStorage.setItem("NF_track","AAAA");
 if(!localStorage.getItem("NF_allEntries")) localStorage.setItem("NF_allEntries","[]");
+
+// =================== HELPERS ===================
+function padTrack(track) {
+  track = track.toUpperCase();
+  while(track.length < 4) track = "A" + track;
+  return track;
+}
+
+function incrementTrack(c) {
+  let a = c.split("");
+  for(let i=3;i>=0;i--){
+    if(a[i]!=="Z"){ a[i] = String.fromCharCode(a[i].charCodeAt(0)+1); break; }
+    a[i] = "A";
+  }
+  return a.join("");
+}
+
+// =================== UPDATE EXISTING ENTRIES ===================
+function updateExistingEntries() {
+  let arr = JSON.parse(localStorage.getItem("NF_allEntries") || "[]");
+  arr.forEach(e => {
+    e.entry = String(parseInt(e.entry)).padStart(5,"0");
+    e.track = padTrack(e.track);
+    localStorage.setItem("NF_" + e.track, JSON.stringify(e));
+  });
+  localStorage.setItem("NF_allEntries", JSON.stringify(arr));
+
+  let maxEntry = arr.reduce((max, e) => Math.max(max, parseInt(e.entry)), 0);
+  localStorage.setItem("NF_entry", maxEntry.toString().padStart(5,"0"));
+
+  if(arr.length){
+    let lastTrack = arr[arr.length-1].track;
+    localStorage.setItem("NF_track", incrementTrack(lastTrack));
+  }
+}
 
 // =================== CODE GENERATION ===================
 function nextEntryNo() {
   let n = parseInt(localStorage.getItem("NF_entry")) + 1;
-  localStorage.setItem("NF_entry", n);
-  return String(n).padStart(3,"0");
+  localStorage.setItem("NF_entry", n.toString().padStart(5,"0"));
+  return String(n).padStart(5,"0");
 }
 
 function nextTrackCode() {
-  let c = localStorage.getItem("NF_track") || "AAA";
-  let ret = c; // return current code for this entry
-  let a = c.split("");
-  for(let i=2;i>=0;i--){
-    if(a[i]!=="Z"){ a[i] = String.fromCharCode(a[i].charCodeAt(0)+1); break;}
-    a[i] = "A";
-  }
-  localStorage.setItem("NF_track", a.join(""));
+  let c = localStorage.getItem("NF_track") || "AAAA";
+  let ret = c;
+  localStorage.setItem("NF_track", incrementTrack(c));
   return ret;
 }
 
@@ -41,7 +71,7 @@ function generateCode() {
 
 // =================== TRACK ENTRY ===================
 function loadTrack() {
-  let t = document.getElementById("trackInput").value.toUpperCase();
+  let t = padTrack(document.getElementById("trackInput").value);
   let d = localStorage.getItem("NF_"+t);
   if(!d) return document.getElementById("status").innerText = "INVALID TRACK CODE";
   let o = JSON.parse(d);
@@ -51,7 +81,7 @@ function loadTrack() {
 }
 
 function confirmTrack() {
-  let t = document.getElementById("trackInput").value.toUpperCase();
+  let t = padTrack(document.getElementById("trackInput").value);
   let o = JSON.parse(localStorage.getItem("NF_"+t));
   if(!o) return;
 
@@ -79,6 +109,7 @@ function confirmTrack() {
 
 // =================== MARK EXIT ===================
 function markExit(track) {
+  track = padTrack(track);
   let o = JSON.parse(localStorage.getItem("NF_"+track));
   if(o.exitTime) return;
   o.exitTime = new Date().toLocaleString();
@@ -126,18 +157,18 @@ function loadView() {
         Mobile: ${mobileVal}<br>
         Item: ${itemVal}<br>
         IN: ${e.entryTime||"—"}<br>
-        OUT: ${e.exitTime||"INSIDE"}<br>
+        OUT: ${e.exitTime ? e.exitTime : `<span class="insideText">INSIDE</span>`}<br>
         Duration: ${duration}<br>
         ${!e.exitTime?`<button onclick="markExit('${e.track}')">MARK EXIT</button>`:""}
       </div><hr>`;
   });
 
   const insideCount = document.getElementById("insideCount");
-  if(insideCount) insideCount.innerText = inside;
+  if(insideCount) insideCount.innerHTML = `<span class="insideText">${inside}</span>`;
 }
 
-// =================== AUTO LOAD FOR VERIFY.HTML ===================
+// =================== AUTO LOAD ===================
 window.addEventListener("DOMContentLoaded", () => {
+  updateExistingEntries();
   loadView();
 });
-
