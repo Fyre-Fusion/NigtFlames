@@ -16,7 +16,7 @@ h1,h2 {
 }
 
 .panel {
-  max-width: 500px;
+  max-width: 600px;
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #0ff;
@@ -43,13 +43,36 @@ button { transition: 0.2s; }
 button:hover { background:#0ff; color:#010101; cursor:pointer; box-shadow:0 0 15px #0ff; }
 button:active { transform:scale(0.97); }
 
+/* OUTPUT GENERATED CODE IN INDEX.HTML */
+#output {
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 10px;
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff;
+  word-break: break-all;
+}
+
+/* ENTRIES LOG */
 .entry {
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #0ff;
   background: #020202;
   border-radius: 6px;
   margin-bottom: 10px;
   box-shadow: 0 0 8px #0ff33 inset;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  font-family: "Courier New", monospace;
+}
+
+.entry b {
+  font-weight: bold;
+  font-family: "Courier New", monospace;
+  color: #0ff;
+  text-shadow: 0 0 6px #0ff;
 }
 
 .entry.inside {
@@ -58,7 +81,18 @@ button:active { transform:scale(0.97); }
   box-shadow: 0 0 8px #ff0 inset;
 }
 
+/* INSIDE GLOW TEXT */
+.insideText {
+  color: #ff0;
+  font-weight: bold;
+  text-shadow: 0 0 8px #ff0, 0 0 15px #ff0;
+}
+
 hr { border: none; border-top: 1px dashed #0ff; margin: 10px 0; }
 
-#searchInput { padding: 8px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #0ff; }
-
+#searchInput { 
+  padding: 8px; 
+  margin-bottom: 12px; 
+  border-radius: 4px; 
+  border: 1px solid #0ff; 
+}
