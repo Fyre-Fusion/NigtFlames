@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NigtFlames OS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>NigtFlames OS</h1>
+
+<div class="panel">
+  <h2>Generate Access Code</h2>
+  <input type="text" id="clearance" placeholder="Clearance Level 0-9">
+  <button onclick="generateCode()">Generate Code</button>
+  <p id="output"></p>
+</div>
+
+<div class="panel">
+  <h2>Navigate</h2>
+  <button onclick="window.location.href='track.html'">Track Entry</button>
+  <button onclick="window.location.href='verify.html'">View Entries</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+

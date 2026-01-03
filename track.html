@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Track Entry - NigtFlames OS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Track Entry</h1>
+
+<div class="panel">
+  <input type="text" id="trackInput" placeholder="Enter Track Code">
+  <button onclick="loadTrack()">Load</button>
+  <p id="status"></p>
+
+  <div id="details" style="display:none;">
+    <input type="text" id="name" placeholder="Name">
+    <input type="text" id="mobile" placeholder="Mobile Number">
+    <input type="text" id="item" placeholder="Reason of Entry (ex. work )">
+    <button onclick="confirmTrack()">Confirm Entry</button>
+  </div>
+</div>
+
+<div class="panel">
+  <button onclick="window.location.href='index.html'">Back</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
